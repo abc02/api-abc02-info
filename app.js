@@ -24,15 +24,28 @@ app.use(bodyParser())
 app.use(static('./static'))
 
 // 设置跨域请求配置
-app.use(cors({
-    origin: 'http://localhost:8080',// 这样就能只允许 localhost:8080 这个域名的请求了
-    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-    maxAge: 100,
-    credentials: true,
-    allowMethods: ['GET'],
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-})
-)
+if (process.env.NODE_ENV === 'development'){
+    app.use(cors({
+        origin: 'http://localhost:8080',// 这样就能只允许 localhost:8080 这个域名的请求了
+        exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+        maxAge: 100,
+        credentials: true,
+        allowMethods: ['GET'],
+        allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    })
+    )
+} else if (process.env.NODE_ENV === 'production') {
+    app.use(cors({
+        origin: 'http://abc02.info',// 这样就能只允许 localhost:8080 这个域名的请求了
+        exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+        maxAge: 100,
+        credentials: true,
+        allowMethods: ['GET'],
+        allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    })
+    )
+}
+
 // 初始化路由中间件
 app.use(routers.routes()).use(routers.allowedMethods())
 
@@ -42,5 +55,6 @@ app.on('error', (err, ctx) => {
 
 // 监听启动端口
 app.listen(config.port, () => {
+    console.log(process.env.NODE_ENV);
     console.log(`listen is starting at port ${config.port}`);
 })
