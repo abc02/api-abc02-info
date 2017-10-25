@@ -1,0 +1,28 @@
+{
+  "name": "api-abc02-info",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run dev_server",
+    "dev_server": "./node_modules/.bin/nodemon  --harmony app.js",
+    "start_server": "node app.js",
+    "start": "npm run start_server",
+    "prod": "./node_modules/pm2/bin/pm2 start app.js --name=api"
+  },
+  "keywords": [],
+  "author": "me <abcgg02@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.1.0",
+    "koa-onerror": "^3.1.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "koa2-cors": "^2.0.3"
+  }
+}
